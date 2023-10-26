@@ -548,6 +548,7 @@ def train_model_only_articles_OLS(features_df):
 
 def train_model_OLS(features_df):
 
+
     ndf = df.copy()
     ndf.sort_index(level=0, inplace=True) # Sort DataFrame by date
     ndf = ndf.iloc[ndf['ipc'].notnull().argmax():].copy() # Drop rows until first notna value in ipc column
@@ -641,3 +642,32 @@ def train_model_OLS(features_df):
     print(f"All train accuracy values: {all_train_accuraccy}")
     print(f"All test accuracy values: {all_test_accuraccy}")
     return all_mae_values, all_r2_values, all_train_accuraccy, all_test_accuraccy
+
+def extract_rake_summary_keywords(df):
+    keywords_list = []
+    for index, row in df.iterrows():
+        for item in row['summary_rake_keywords']:
+            keywords_list.append(item)
+
+    counts = Counter(keywords_list)
+
+    keywords_rake_summary = pd.DataFrame.from_dict(counts, orient='index').reset_index()
+    keywords_rake_summary.rename(columns={0: 'values'}, inplace=True)
+    keywords_rake_summary = keywords_rake_summary.sort_values(by='values', ascending=False)
+
+    return keywords_rake_summary
+
+def extract_rake_paragraphs_keywords(df):
+    keywords_list = []
+    for index, row in df.iterrows():
+        for item in row['paragraphs_rake_keywords']:
+            keywords_list.append(item)
+
+    # Count the keywords and sort them using the Counter library
+    counts = Counter(keywords_list)
+
+    # Create a dataframe to sort the keywords more easily
+    keywords_rake_paragraphs = pd.DataFrame.from_dict(counts, orient='index').reset_index()
+    keywords_rake_paragraphs.rename( columns={0 :'values'}, inplace=True )
+    keywords_rake_paragraphs.sort_values(by='values', ascending=False)
+    return keywords_rake_paragraphs
