@@ -261,11 +261,11 @@ def create_news_features(input_news_df, columns):
         cols.append(col)
     return pd.concat(cols, axis=1)
 
-def train_model_logistic(features_df):
+def train_model_logistic(features_df, ipc_df):
     """
     Takes dataframe with keywords as input and returns the MAE, R2, train accuraccy and test accuraccy for each number of features.
     """
-    ndf = features_df.copy()
+    ndf = ipc_df.copy()
     ndf.sort_index(level=0, inplace=True) # Sort DataFrame by date
     ndf = ndf.iloc[ndf['ipc'].notnull().argmax():].copy() # Drop rows until first notna value in ipc column
     ndf = ndf.join(features_df, how="left") # Join df with created news features
@@ -356,10 +356,10 @@ def train_model_logistic(features_df):
     print(f"All test accuracy values: {all_test_accuraccy}")
     return all_mae_values, all_r2_values, all_train_accuraccy, all_test_accuraccy
 
-def train_model_only_articles_logistic(features_df):
+def train_model_only_articles_logistic(features_df, ipc_df):
 
 
-    ndf = df.copy()
+    ndf = ipc_df.copy()
     ndf.sort_index(level=0, inplace=True) # Sort DataFrame by date
     ndf = ndf.iloc[ndf['ipc'].notnull().argmax():].copy() # Drop rows until first notna value in ipc column
     ndf = ndf.join(features_df, how="left") # Join df with created news features
@@ -449,10 +449,10 @@ def train_model_only_articles_logistic(features_df):
     print(f"All test accuracy values: {all_test_accuraccy}")
     return all_mae_values, all_r2_values, all_train_accuraccy, all_test_accuraccy
 
-def train_model_only_articles_OLS(features_df):
+def train_model_only_articles_OLS(features_df, ipc_df):
 
 
-    ndf = df.copy()
+    ndf = ipc_df.copy()
     ndf.sort_index(level=0, inplace=True) # Sort DataFrame by date
     ndf = ndf.iloc[ndf['ipc'].notnull().argmax():].copy() # Drop rows until first notna value in ipc column
     ndf = ndf.join(features_df, how="left") # Join df with created news features
@@ -546,10 +546,10 @@ def train_model_only_articles_OLS(features_df):
     print(f"All test accuracy values: {all_test_accuraccy}")
     return all_mae_values, all_r2_values, all_train_accuraccy, all_test_accuraccy
 
-def train_model_OLS(features_df):
+def train_model_OLS(features_df, ipc_df):
 
 
-    ndf = df.copy()
+    ndf = ipc_df.copy()
     ndf.sort_index(level=0, inplace=True) # Sort DataFrame by date
     ndf = ndf.iloc[ndf['ipc'].notnull().argmax():].copy() # Drop rows until first notna value in ipc column
     ndf = ndf.join(features_df, how="left") # Join df with created news features

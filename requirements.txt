@@ -6,14 +6,4 @@ seaborn == 0.12.2
 statsmodels == 0.14.0
 rake-nltk == 1.0.4
 yake == 0.4.8
-matplotlib_venn
-umap
-tdqm.notebook
-nltk
-yake
-ipywidgets
-collections
-itertools
-ast
-re 
-statsmodels.regression.linear_model
+ipywidgets == 8.1.1
