@@ -7,3 +7,4 @@ statsmodels == 0.14.0
 rake-nltk == 1.0.4
 yake == 0.4.8
 ipywidgets == 8.1.1
+matplotlib_venn == 0.11.9
